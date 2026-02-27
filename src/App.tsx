@@ -9,45 +9,48 @@ function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-slate-950">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-14">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">M</span>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <span className="text-white font-bold">M</span>
               </div>
-              <div>
-                <h1 className="text-base font-bold text-gray-900 dark:text-white">
+              <div className="hidden sm:block">
+                <h1 className="text-sm font-bold text-white">
                   Modern Frontend
                 </h1>
               </div>
             </div>
 
-            {/* Navigation Buttons */}
+            {/* Navigation Links */}
             <div className="flex items-center gap-1">
-              {(['home', 'hooks', 'api'] as Page[]).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    currentPage === page
-                      ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  }`}
-                >
-                  {page === 'home' ? '首页' : page === 'hooks' ? 'Hooks' : 'API'}
-                </button>
-              ))}
+              {(['home', 'hooks', 'api'] as Page[]).map((page) => {
+                const isActive = currentPage === page;
+                return (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    {page === 'home' ? '首页' : page === 'hooks' ? 'Hooks' : 'API'}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
       </nav>
 
       {/* Content */}
-      <div className="pt-16">{renderPage(currentPage)}</div>
+      <div className="pt-14">{renderPage(currentPage)}</div>
     </div>
   );
 }
