@@ -1,5 +1,4 @@
-import { ReactNode, useState } from 'react';
-import { Button } from './Button';
+import type { ReactNode } from 'react';
 
 interface ModalProps {
   isOpen: boolean;

@@ -9,7 +9,7 @@ import { useState } from 'react';
 export const HooksDemo = () => {
   const { width, height } = useWindowSize();
   const [count, setCount] = useLocalStorage<number>('hooks-demo-count', 0);
-  const [isDark, toggleDark, setDark] = useToggle(false);
+  const [isDark, toggleDark] = useToggle(false);
   const [text, setText] = useState('');
   const debouncedText = useDebounce(text, 500);
 
