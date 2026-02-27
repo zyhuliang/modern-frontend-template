@@ -233,6 +233,26 @@ const money = formatCurrency(1000); // ¥1,000.00
 
 ## 🚀 部署
 
+### GitHub Pages（推荐）
+
+本项目已配置 GitHub Actions 自动部署到 GitHub Pages。
+
+**自动部署：**
+- 推送到 `main` 分支时自动触发部署
+- 部署地址：https://zyhuliang.github.io/modern-frontend-template/
+- 详见：[DEPLOYMENT.md](DEPLOYMENT.md)
+
+**首次部署步骤：**
+
+1. 在仓库 Settings → Pages 中启用 GitHub Pages
+2. 选择 **Source** 为 **GitHub Actions**
+3. 推送代码触发部署：
+   ```bash
+   git push origin main
+   ```
+
+4. 查看部署状态：Actions → Deploy to GitHub Pages
+
 ### Vercel
 
 ```bash
@@ -245,34 +265,6 @@ vercel
 ```bash
 npm run build
 # 将 dist 目录上传到 Netlify
-```
-
-### GitHub Pages
-
-在 `.github/workflows/deploy.yml` 中配置：
-
-```yaml
-name: Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
 ```
 
 ## 🤝 贡献

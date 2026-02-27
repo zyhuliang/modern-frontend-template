@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 🔧 工具函数库
 - 📖 完整的文档和示例
 - 🚀 GitHub Actions CI/CD 配置
+- 🌐 GitHub Pages 自动部署配置
 
 ### Components
 - Button - 多变体按钮（primary, secondary, outline）
@@ -38,6 +39,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HooksDemo - Hooks 功能演示
 - ApiDemo - API 请求演示
 
+### Deployment
+- GitHub Pages 自动部署 workflow
+- 详细的部署文档（DEPLOYMENT.md）
+- 支持手动触发部署
+- 自定义域名配置指南
+
 ### Utils
 - API 请求封装（get, post, put, delete）
 - 日期格式化
@@ -49,6 +56,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 - README.md - 项目说明和使用指南
 - CONTRIBUTING.md - 贡献指南
+- DEPLOYMENT.md - 部署指南
+- CHANGELOG.md - 版本更新日志
 - LICENSE - MIT 开源许可证
 
 ## [1.0.0] - 2026-02-27
