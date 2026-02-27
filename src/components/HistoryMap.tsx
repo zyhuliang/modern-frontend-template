@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Slider, Button, Card, Typography, Space, Tag, Select, Divider, Modal } from 'antd';
+import { Slider, Button, Card, Typography, Space, Tag, Select, Divider, Modal, List } from 'antd';
 import {
   HistoryOutlined,
   EnvironmentOutlined,
   ClockCircleOutlined,
   CompassOutlined,
   PictureOutlined,
+  LinkOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
 import 'leaflet/dist/leaflet.css';
 
@@ -204,6 +206,17 @@ export const HistoryMap = () => {
   const [mapZoom, setMapZoom] = useState(4);
   const [showDynastyMap] = useState(true);
   const [mapModalOpen, setMapModalOpen] = useState(false);
+  const [resourceModalOpen, setResourceModalOpen] = useState(false);
+
+  // 权威历史地图资源
+  const historyResources = [
+    { name: '复旦大学历史地理研究中心', url: 'http://yugong.fudan.edu.cn/', description: '中国历史地理研究权威机构' },
+    { name: '中国历史地图在线', url: 'https://www.ageeye.cn/', description: '中国历史地图在线浏览平台' },
+    { name: 'OpenHistoricalMap', url: 'https://www.openhistoricalmap.org/', description: '开放历史地图国际项目' },
+    { name: '中华典藏-历史地图', url: 'https://www.zhonghuadiancang.com/', description: '中国古代典籍与历史地图' },
+    { name: '国家图书馆数字资源', url: 'http://www.nlc.cn/', description: '中国国家图书馆数字资源' },
+    { name: '故宫博物院数字文物', url: 'https://www.dpm.org.cn/', description: '故宫博物院数字文物库' },
+  ];
 
   const layer = historicalLayers[currentLayer];
   const era = getEra(year);
@@ -302,6 +315,17 @@ export const HistoryMap = () => {
             }}
           />
           <Text className="!text-slate-400 !text-xs block mt-2">{dynastyMap.description}</Text>
+          <div className="mt-2 pt-2 border-t border-slate-700">
+            <Button 
+              size="small" 
+              type="link" 
+              icon={<BookOutlined />}
+              onClick={() => setResourceModalOpen(true)}
+              className="!p-0 !text-blue-400"
+            >
+              查看更多历史地图资源
+            </Button>
+          </div>
         </Card>
       )}
 
@@ -402,6 +426,55 @@ export const HistoryMap = () => {
             </Text>
           </div>
         )}
+      </Modal>
+
+      {/* 历史地图资源弹窗 */}
+      <Modal
+        open={resourceModalOpen}
+        onCancel={() => setResourceModalOpen(false)}
+        footer={null}
+        title={
+          <div className="flex items-center gap-2">
+            <BookOutlined className="text-blue-400" />
+            <span>权威历史地图资源</span>
+          </div>
+        }
+        width={600}
+        centered
+      >
+        <div className="mb-4">
+          <Text className="!text-slate-400">
+            以下是权威的中国历史地图在线资源，可查看更详细、更准确的历史疆域图：
+          </Text>
+        </div>
+        <List
+          itemLayout="horizontal"
+          dataSource={historyResources}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<LinkOutlined className="text-blue-400 text-lg" />}
+                title={
+                  <a 
+                    href={item.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300"
+                  >
+                    {item.name}
+                  </a>
+                }
+                description={item.description}
+              />
+            </List.Item>
+          )}
+        />
+        <Divider />
+        <div className="text-center">
+          <Text className="!text-slate-500 !text-xs">
+            提示：以上资源为外部网站，请在遵守版权规定的前提下使用
+          </Text>
+        </div>
       </Modal>
     </div>
   );
