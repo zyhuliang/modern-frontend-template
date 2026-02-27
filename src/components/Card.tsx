@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, HTMLAttributes } from 'react';
 
-interface CardProps {
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className?: string;
   hover?: boolean;
 }
 
-export const Card = ({ children, className = '', hover = false }: CardProps) => {
+export const Card = ({ children, className = '', hover = false, ...props }: CardProps) => {
   const baseStyles =
     'bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 relative overflow-hidden';
 
@@ -15,7 +15,7 @@ export const Card = ({ children, className = '', hover = false }: CardProps) => 
     : '';
 
   return (
-    <div className={`${baseStyles} ${hoverStyles} ${className}`}>
+    <div className={`${baseStyles} ${hoverStyles} ${className}`} {...props}>
       {/* Subtle gradient overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-blue-50/50 dark:to-blue-900/10 pointer-events-none rounded-2xl" />
 

@@ -91,7 +91,7 @@ export const Home = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {[
-            { label: 'React', value: '18+'', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' },
+            { label: 'React', value: '18+', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' },
             { label: 'TypeScript', value: '5+', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' },
             { label: 'Vite', value: '6+', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' },
             { label: '构建速度', value: '100x', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
