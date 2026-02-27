@@ -9,7 +9,7 @@ import { HomeOutlined, GlobalOutlined, ApiOutlined, ToolOutlined } from '@ant-de
 type Page = 'home' | 'hooks' | 'api' | 'map';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPage] = useState<Page>('map');
 
   const navItems = [
     { key: 'home', label: '首页', icon: <HomeOutlined /> },
