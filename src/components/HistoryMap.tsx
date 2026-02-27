@@ -159,12 +159,14 @@ export const HistoryMap = () => {
   const visibleMarkers = historicalMarkers.filter((m) => Math.abs(m.year - year) < 300);
 
   const quickYears = [
-    { label: '古埃及', year: -2500 },
-    { label: '古希腊', year: -400 },
-    { label: '罗马帝国', year: 100 },
-    { label: '大航海', year: 1500 },
-    { label: '工业革命', year: 1850 },
-    { label: '现代', year: 2000 },
+    { label: '商周', year: -1000 },
+    { label: '春秋战国', year: -500 },
+    { label: '秦汉', year: -100 },
+    { label: '三国两晋', year: 200 },
+    { label: '隋唐', year: 650 },
+    { label: '宋元', year: 1100 },
+    { label: '明清', year: 1500 },
+    { label: '近代', year: 1900 },
   ];
 
   return (
