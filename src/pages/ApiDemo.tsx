@@ -6,10 +6,11 @@ import { Loading } from '../components/Loading';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useDebounce } from '../hooks/useDebounce';
 import { get } from '../lib/api';
+import type { User } from '../types';
 
 export const ApiDemo = () => {
   const [userId, setUserId] = useLocalStorage<string>('api-demo-user-id', '1');
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,9 +21,9 @@ export const ApiDemo = () => {
     setError(null);
 
     try {
-      const data = await get(`https://jsonplaceholder.typicode.com/users/${debouncedUserId}`);
+      const data = await get<User>(`https://jsonplaceholder.typicode.com/users/${debouncedUserId}`);
       setUserData(data);
-    } catch (err) {
+    } catch {
       setError('Failed to fetch user data');
     } finally {
       setLoading(false);
