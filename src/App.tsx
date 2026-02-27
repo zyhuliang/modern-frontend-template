@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Home } from './pages/Home';
 import { HooksDemo } from './pages/HooksDemo';
 import { ApiDemo } from './pages/ApiDemo';
+import { HistoryMap } from './components/HistoryMap';
 
-type Page = 'home' | 'hooks' | 'api';
+type Page = 'home' | 'hooks' | 'api' | 'map';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -28,19 +29,24 @@ function App() {
 
             {/* Navigation Links */}
             <div className="flex items-center gap-1">
-              {(['home', 'hooks', 'api'] as Page[]).map((page) => {
-                const isActive = currentPage === page;
+              {[
+                { key: 'home', label: '首页' },
+                { key: 'map', label: '历史地图' },
+                { key: 'hooks', label: 'Hooks' },
+                { key: 'api', label: 'API' },
+              ].map((item) => {
+                const isActive = currentPage === item.key;
                 return (
                   <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
+                    key={item.key}
+                    onClick={() => setCurrentPage(item.key as Page)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive
                         ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20'
                         : 'text-slate-400 hover:text-white hover:bg-slate-800'
                     }`}
                   >
-                    {page === 'home' ? '首页' : page === 'hooks' ? 'Hooks' : 'API'}
+                    {item.key === 'map' && '🗺️ '}{item.label}
                   </button>
                 );
               })}
@@ -63,6 +69,8 @@ function renderPage(currentPage: Page) {
       return <HooksDemo />;
     case 'api':
       return <ApiDemo />;
+    case 'map':
+      return <HistoryMap />;
     default:
       return <Home />;
   }
