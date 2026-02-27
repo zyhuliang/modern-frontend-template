@@ -1,86 +1,64 @@
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { useWindowSize } from '../hooks/useWindowSize';
-import { useState } from 'react';
 
 export const Home = () => {
   const { width, height } = useWindowSize();
-  const [activeFeature, setActiveFeature] = useState<number | null>(null);
-
-  const features = [
-    {
-      id: 1,
-      title: '极速构建',
-      description: 'Vite 6 提供毫秒级热更新，开发体验丝般顺滑',
-      icon: '⚡',
-      color: 'from-yellow-400 to-orange-500',
-    },
-    {
-      id: 2,
-      title: '类型安全',
-      description: 'TypeScript 5 全栈类型支持，告别运行时错误',
-      icon: '🛡️',
-      color: 'from-blue-400 to-cyan-500',
-    },
-    {
-      id: 3,
-      title: '原子化 CSS',
-      description: 'Tailwind CSS 快速构建现代化 UI，代码更简洁',
-      icon: '🎨',
-      color: 'from-purple-400 to-pink-500',
-    },
-  ];
 
   return (
     <div>
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-30 dark:opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-          <div className="absolute top-20 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
-          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000" />
+        <div className="absolute inset-0 opacity-10">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <pattern
+                id="grid"
+                width="10"
+                height="10"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 10 0 L 0 0 0 10"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="0.5"
+                />
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid)" />
+          </svg>
         </div>
 
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 border border-blue-200 dark:border-blue-800 mb-8">
-              <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse" />
-              <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
-                开箱即用的现代化前端模板
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Modern Frontend
-              </span>
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Modern Frontend
               <br />
-              <span className="text-gray-900 dark:text-white">Template</span>
+              <span className="text-blue-200">Template</span>
             </h1>
-
-            {/* Subtitle */}
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-blue-100 mb-10 leading-relaxed">
               React 18 · TypeScript 5 · Vite 6 · Tailwind CSS
             </p>
-
-            {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-4">
               <Button
-                variant="primary"
+                variant="secondary"
                 size="lg"
-                className="shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30"
+                className="bg-white text-blue-600 hover:bg-gray-100 border-0"
               >
-                🚀 快速开始
+                快速开始
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2"
+                className="border-white/50 text-white hover:bg-white/10"
               >
-                📖 查看文档
+                查看文档
               </Button>
             </div>
           </div>
@@ -88,174 +66,190 @@ export const Home = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          {[
-            { label: 'React', value: '18+', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' },
-            { label: 'TypeScript', value: '5+', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' },
-            { label: 'Vite', value: '6+', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' },
-            { label: '构建速度', value: '100x', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' },
-          ].map((stat, index) => (
-            <Card
-              key={index}
-              className={`text-center p-6 ${stat.color} hover:scale-105 transition-transform duration-300`}
-            >
-              <div className="text-3xl font-bold mb-1">{stat.value}</div>
-              <div className="text-sm font-medium opacity-80">{stat.label}</div>
-            </Card>
-          ))}
+      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            {[
+              { label: 'React', value: '18' },
+              { label: 'TypeScript', value: '5' },
+              { label: 'Vite', value: '6' },
+              { label: '构建速度', value: '100x' },
+            ].map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Window Size Demo */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <Card className="max-w-2xl mx-auto bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-gray-900 border-2 border-blue-200 dark:border-blue-800">
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mr-4 shadow-lg">
-              <span className="text-2xl">📐</span>
+      <div className="bg-gray-50 dark:bg-gray-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <Card className="max-w-3xl mx-auto">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                窗口大小
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                使用 useWindowSize Hook 实时监测
+              </p>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">窗口大小</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">实时监测</p>
-            </div>
-          </div>
-          <div className="flex gap-8">
-            <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-inner">
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">宽度</div>
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                {width}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">宽度</div>
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">
+                  {width}
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">px</div>
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">px</div>
-            </div>
-            <div className="flex-1 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-inner">
-              <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">高度</div>
-              <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                {height}
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">高度</div>
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">
+                  {height}
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">px</div>
               </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">px</div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </div>
 
       {/* Button Demo */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <Card className="max-w-4xl mx-auto bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-gray-900 border-2 border-purple-200 dark:border-purple-800">
-          <div className="flex items-center mb-8">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mr-4 shadow-lg">
-              <span className="text-2xl">🎯</span>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">按钮组件</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">多种样式与尺寸</p>
-            </div>
+      <div className="bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              按钮组件
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              多种样式与尺寸，满足各种场景
+            </p>
           </div>
-          <div className="space-y-8">
-            {/* Primary Buttons */}
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">主要按钮</h3>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="primary" size="sm">Small</Button>
-                <Button variant="primary" size="md">Medium</Button>
-                <Button variant="primary" size="lg">Large</Button>
+
+          <Card className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              {/* Primary */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+                  Primary Buttons
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  <Button variant="primary" size="sm">Small</Button>
+                  <Button variant="primary" size="md">Medium</Button>
+                  <Button variant="primary" size="lg">Large</Button>
+                </div>
+              </div>
+
+              {/* Secondary */}
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+                  Secondary Buttons
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  <Button variant="secondary" size="sm">Small</Button>
+                  <Button variant="secondary" size="md">Medium</Button>
+                  <Button variant="secondary" size="lg">Large</Button>
+                </div>
+              </div>
+
+              {/* Outline */}
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+                  Outline Buttons
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  <Button variant="outline" size="sm">Small</Button>
+                  <Button variant="outline" size="md">Medium</Button>
+                  <Button variant="outline" size="lg">Large</Button>
+                </div>
               </div>
             </div>
-            {/* Secondary Buttons */}
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">次要按钮</h3>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="secondary" size="sm">Small</Button>
-                <Button variant="secondary" size="md">Medium</Button>
-                <Button variant="secondary" size="lg">Large</Button>
-              </div>
-            </div>
-            {/* Outline Buttons */}
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">轮廓按钮</h3>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="outline" size="sm">Small</Button>
-                <Button variant="outline" size="md">Medium</Button>
-                <Button variant="outline" size="lg">Large</Button>
-              </div>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </div>
 
       {/* Features Section */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            为什么选择我们
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            专为现代前端开发量身定制的解决方案
-          </p>
-        </div>
+      <div className="bg-gray-50 dark:bg-gray-950">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              为什么选择我们
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              专为现代前端开发打造
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {features.map((feature) => (
-            <Card
-              key={feature.id}
-              hover
-              className={`p-8 bg-gradient-to-br ${feature.color} text-white relative overflow-hidden group cursor-pointer`}
-              onMouseEnter={() => setActiveFeature(feature.id)}
-              onMouseLeave={() => setActiveFeature(null)}
-            >
-              {/* Decorative Elements */}
-              <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full group-hover:scale-150 transition-transform duration-500" />
-              <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-black/10 rounded-full group-hover:scale-125 transition-transform duration-700" />
-
-              {/* Content */}
-              <div className="relative z-10">
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
-                </div>
-                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-white/90 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                icon: '⚡',
+                title: '极速构建',
+                description: 'Vite 6 提供毫秒级热更新，开发体验丝般顺滑',
+              },
+              {
+                icon: '🛡️',
+                title: '类型安全',
+                description: 'TypeScript 5 全栈类型支持，告别运行时错误',
+              },
+              {
+                icon: '🎨',
+                title: '原子化 CSS',
+                description: 'Tailwind CSS 快速构建现代化 UI，代码更简洁',
+              },
+            ].map((feature, index) => (
+              <Card key={index} hover className="h-full">
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                   {feature.description}
                 </p>
-              </div>
-
-              {/* Active Indicator */}
-              {activeFeature === feature.id && (
-                <div className="absolute bottom-4 right-4">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                </div>
-              )}
-            </Card>
-          ))}
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Call to Action */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <Card className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-center p-12 shadow-2xl shadow-indigo-500/30">
-          <h2 className="text-4xl font-bold mb-4">开始构建吧！</h2>
-          <p className="text-xl mb-8 text-white/90">
-            立即使用这个模板，节省 80% 的配置时间
-          </p>
-          <Button
-            variant="outline"
-            size="lg"
-            className="bg-white text-blue-600 hover:bg-gray-100 border-0"
-          >
-            ⭐ 在 GitHub 上 Star
-          </Button>
-        </Card>
+      {/* CTA Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              开始构建吧！
+            </h2>
+            <p className="text-lg text-blue-100 mb-8">
+              立即使用这个模板，节省 80% 的配置时间
+            </p>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100 border-0"
+            >
+              在 GitHub 上 Star
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+      <footer className="bg-gray-900 text-gray-400">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-600 dark:text-gray-400">
+          <div className="text-center">
             <p className="mb-2">
               Made with ❤️ by{' '}
               <a
                 href="https://github.com/zyhuliang"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-blue-400 hover:text-blue-300 transition-colors"
               >
                 @zyhuliang
               </a>
