@@ -1,74 +1,70 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-/* Leaflet 样式修复 */
-.leaflet-container {
-  font-family: inherit;
+/* 自定义 prose 样式（暗色主题） */
+.prose {
+  --tw-prose-body: #cbd5e1;
+  --tw-prose-headings: #f1f5f9;
+  --tw-prose-lead: #94a3b8;
+  --tw-prose-links: #60a5fa;
+  --tw-prose-bold: #f1f5f9;
+  --tw-prose-counters: #64748b;
+  --tw-prose-bullets: #475569;
+  --tw-prose-hr: #334155;
+  --tw-prose-quotes: #f1f5f9;
+  --tw-prose-quote-borders: #3b82f6;
+  --tw-prose-captions: #64748b;
+  --tw-prose-code: #f1f5f9;
+  --tw-prose-pre-code: #e2e8f0;
+  --tw-prose-pre-bg: #1e293b;
+  --tw-prose-th-borders: #475569;
+  --tw-prose-td-borders: #334155;
 }
 
-.leaflet-control-attribution {
-  background: rgba(15, 23, 42, 0.9) !important;
-  color: #94a3b8 !important;
-  font-size: 10px;
-  padding: 2px 8px;
+.prose a {
+  text-decoration: none;
 }
 
-.leaflet-control-attribution a {
-  color: #60a5fa !important;
+.prose a:hover {
+  text-decoration: underline;
 }
 
-/* 时间滑块样式 */
-input[type='range'].slider {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
+.prose code {
+  background: #1e293b;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
 }
 
-input[type='range'].slider::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, #3b82f6, #8b5cf6);
-  height: 8px;
-  border-radius: 4px;
-}
-
-input[type='range'].slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  margin-top: -6px;
-  background-color: white;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  border: 3px solid #3b82f6;
-  cursor: grab;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
-
-input[type='range'].slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  transform: scale(1.1);
-}
-
-input[type='range'].slider::-moz-range-track {
-  background: linear-gradient(to right, #3b82f6, #8b5cf6);
-  height: 8px;
-  border-radius: 4px;
-}
-
-input[type='range'].slider::-moz-range-thumb {
-  background-color: white;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  border: 3px solid #3b82f6;
-  cursor: grab;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
-
-/* 地图容器样式 */
-.map-container {
+.prose pre {
   background: #0f172a;
+  border: 1px solid #334155;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose blockquote {
+  border-left-color: #3b82f6;
+  background: #1e293b;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem 1.5rem;
+}
+
+.prose img {
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
+}
+
+.prose table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.prose th {
+  background: #1e293b;
 }
 
 /* 全局滚动条样式 */
@@ -94,4 +90,19 @@ input[type='range'].slider::-moz-range-thumb {
 ::selection {
   background: rgba(59, 130, 246, 0.5);
   color: white;
+}
+
+/* line-clamp 支持 */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }

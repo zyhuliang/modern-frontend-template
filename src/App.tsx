@@ -1,73 +1,94 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { HooksDemo } from './pages/HooksDemo';
-import { ApiDemo } from './pages/ApiDemo';
-import { HistoryMap } from './components/HistoryMap';
+import { About } from './pages/About';
+import { BlogList } from './pages/blog/BlogList';
+import { BlogPost } from './pages/blog/BlogPost';
 import { Button, Space } from 'antd';
-import { HomeOutlined, GlobalOutlined, ApiOutlined, ToolOutlined } from '@ant-design/icons';
+import { HomeOutlined, BookOutlined, UserOutlined } from '@ant-design/icons';
 
-type Page = 'home' | 'hooks' | 'api' | 'map';
-
-function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('map');
-
+function Navigation() {
+  const location = useLocation();
+  
   const navItems = [
-    { key: 'home', label: '首页', icon: <HomeOutlined /> },
-    { key: 'map', label: '历史地图', icon: <GlobalOutlined /> },
-    { key: 'hooks', label: 'Hooks', icon: <ToolOutlined /> },
-    { key: 'api', label: 'API', icon: <ApiOutlined /> },
+    { key: '/', label: '首页', icon: <HomeOutlined />, path: '/' },
+    { key: '/blog', label: '博客', icon: <BookOutlined />, path: '/blog' },
+    { key: '/about', label: '关于', icon: <UserOutlined />, path: '/about' },
   ];
 
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 shadow-lg">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-center h-16">
-            {/* Navigation Buttons */}
-            <Space size={8}>
-              {navItems.map((item) => {
-                const isActive = currentPage === item.key;
-                return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 shadow-lg">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 text-white font-bold text-lg">
+            <span className="text-2xl">📝</span>
+            <span>My Blog</span>
+          </Link>
+          
+          {/* Navigation Buttons */}
+          <Space size={8}>
+            {navItems.map((item) => {
+              const active = isActive(item.path);
+              return (
+                <Link key={item.key} to={item.path}>
                   <Button
-                    key={item.key}
-                    type={isActive ? 'primary' : 'text'}
+                    type={active ? 'primary' : 'text'}
                     icon={item.icon}
-                    onClick={() => setCurrentPage(item.key as Page)}
-                    className={`!h-11 !px-6 !rounded-xl !text-base !font-medium transition-all duration-300 ${
-                      isActive
+                    className={`!h-10 !px-5 !rounded-xl !text-sm !font-medium transition-all duration-300 ${
+                      active
                         ? '!shadow-lg !shadow-blue-500/30'
                         : '!text-slate-400 hover:!text-white hover:!bg-slate-800'
                     }`}
                   >
                     {item.label}
                   </Button>
-                );
-              })}
-            </Space>
-          </div>
+                </Link>
+              );
+            })}
+          </Space>
         </div>
-      </nav>
-
-      {/* Content */}
-      <div className="pt-16">{renderPage(currentPage)}</div>
-    </div>
+      </div>
+    </nav>
   );
 }
 
-function renderPage(currentPage: Page) {
-  switch (currentPage) {
-    case 'home':
-      return <Home />;
-    case 'hooks':
-      return <HooksDemo />;
-    case 'api':
-      return <ApiDemo />;
-    case 'map':
-      return <HistoryMap />;
-    default:
-      return <Home />;
-  }
+function App() {
+  return (
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <div className="min-h-screen bg-slate-950">
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        
+        {/* Footer */}
+        <footer className="py-8 px-6 border-t border-slate-800">
+          <div className="container mx-auto max-w-4xl text-center text-slate-500 text-sm">
+            <p>© {new Date().getFullYear()} My Blog. Built with React + Vite + Tailwind CSS</p>
+            <p className="mt-2">
+              Powered by{' '}
+              <a 
+                href="https://github.com/zyhuliang" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:underline"
+              >
+                @zyhuliang
+              </a>
+            </p>
+          </div>
+        </footer>
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;
