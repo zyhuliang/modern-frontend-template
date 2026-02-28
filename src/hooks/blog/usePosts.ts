@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { Post, PostMeta } from '../../types/blog';
+import { useState, useMemo } from 'react';
+import type { PostMeta } from '../../types/blog';
 
 // 硬编码文章列表（构建时确定）
 const postModules = import.meta.glob('../../posts/*.md', { eager: true, query: '?raw', import: 'default' }) as Record<string, string>;
@@ -60,58 +60,53 @@ function parseFrontMatter(content: string): { data: Record<string, unknown>; con
   return { data, content: body };
 }
 
-export function usePosts() {
-  const [posts, setPosts] = useState<PostMeta[]>([]);
-  const [loading, setLoading] = useState(true);
+// 解析所有文章（静态数据，在模块加载时就处理）
+function loadAllPosts(): PostMeta[] {
+  const loadedPosts: PostMeta[] = [];
 
-  useEffect(() => {
-    const loadedPosts: PostMeta[] = [];
-
-    for (const [path, content] of Object.entries(postModules)) {
-      if (typeof content === 'string') {
-        const { data } = parseFrontMatter(content);
-        const slug = path.replace('../../posts/', '').replace('.md', '');
-        
-        loadedPosts.push({
-          slug,
-          title: (data.title as string) || 'Untitled',
-          date: (data.date as string) || new Date().toISOString(),
-          excerpt: (data.excerpt as string) || '',
-          tags: (data.tags as string[]) || [],
-          category: (data.category as string) || 'Uncategorized',
-          cover: data.cover as string,
-        });
-      }
+  for (const [path, content] of Object.entries(postModules)) {
+    if (typeof content === 'string') {
+      const { data } = parseFrontMatter(content);
+      const slug = path.replace('../../posts/', '').replace('.md', '');
+      
+      loadedPosts.push({
+        slug,
+        title: (data.title as string) || 'Untitled',
+        date: (data.date as string) || new Date().toISOString(),
+        excerpt: (data.excerpt as string) || '',
+        tags: (data.tags as string[]) || [],
+        category: (data.category as string) || 'Uncategorized',
+        cover: data.cover as string,
+      });
     }
+  }
 
-    // 按日期排序
-    loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    setPosts(loadedPosts);
-    setLoading(false);
-  }, []);
+  // 按日期排序
+  return loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+// 预加载所有文章
+const allPosts = loadAllPosts();
+
+export function usePosts() {
+  const [posts] = useState<PostMeta[]>(() => allPosts);
+  const [loading] = useState(false);
 
   return { posts, loading };
 }
 
 export function usePost(slug: string) {
-  const [post, setPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // 找到对应的文章
+  const post = useMemo(() => {
     const path = `../../posts/${slug}.md`;
     const content = postModules[path];
     
     if (typeof content !== 'string') {
-      setError('Post not found');
-      setLoading(false);
-      return;
+      return null;
     }
 
     const { data, content: body } = parseFrontMatter(content);
     
-    setPost({
+    return {
       slug,
       frontMatter: {
         title: (data.title as string) || 'Untitled',
@@ -123,20 +118,23 @@ export function usePost(slug: string) {
         author: data.author as string,
       },
       content: body,
-    });
-    setLoading(false);
+    };
   }, [slug]);
 
-  return { post, loading, error };
+  return { post, loading: false, error: post ? null : 'Post not found' };
 }
 
 export function useCategories(posts: PostMeta[]) {
-  const categories = [...new Set(posts.map(p => p.category).filter(Boolean))];
-  return categories;
+  return useMemo(() => {
+    const cats = [...new Set(posts.map(p => p.category).filter(Boolean))];
+    return cats;
+  }, [posts]);
 }
 
 export function useTags(posts: PostMeta[]) {
-  const tagsSet = new Set<string>();
-  posts.forEach(p => p.tags?.forEach(t => tagsSet.add(t)));
-  return [...tagsSet];
+  return useMemo(() => {
+    const tagsSet = new Set<string>();
+    posts.forEach(p => p.tags?.forEach(t => tagsSet.add(t)));
+    return [...tagsSet];
+  }, [posts]);
 }
