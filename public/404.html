@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/modern-frontend-template/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Modern React + TypeScript + Vite + Tailwind CSS frontend template" />
     <meta name="keywords" content="React, TypeScript, Vite, Tailwind CSS, Frontend" />
@@ -11,13 +11,21 @@
     <meta property="og:description" content="Modern React + TypeScript + Vite + Tailwind CSS frontend template" />
     <meta property="og:type" content="website" />
     <title>Modern Frontend Template</title>
+    <script type="module" crossorigin src="/modern-frontend-template/assets/index-DoY5DgMH.js"></script>
+    <link rel="modulepreload" crossorigin href="/modern-frontend-template/assets/router-MAMMoG7f.js">
+    <link rel="modulepreload" crossorigin href="/modern-frontend-template/assets/markdown-BwajWpjA.js">
+    <link rel="stylesheet" crossorigin href="/modern-frontend-template/assets/index-BU87u8SQ.css">
+    <!-- SPA 路由重定向脚本 -->
+    <script>
+      // 将当前路径存储到 sessionStorage
+      sessionStorage.redirect = location.pathname + location.search + location.hash;
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- SPA 路由恢复脚本 -->
+    <!-- SPA 路由重定向脚本 -->
     <script>
-      // 从 404 页面重定向后恢复路由
+      // 如果是从 404 页面重定向过来的，恢复路由
       var redirect = sessionStorage.redirect;
       delete sessionStorage.redirect;
       if (redirect && redirect !== '/') {
