@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* 自定义 prose 样式（暗色主题） */
-.prose {
+/* Dark mode prose styles */
+.dark .prose {
   --tw-prose-body: #cbd5e1;
   --tw-prose-headings: #f1f5f9;
   --tw-prose-lead: #94a3b8;
@@ -21,6 +21,26 @@
   --tw-prose-td-borders: #334155;
 }
 
+/* Light mode prose styles */
+.light .prose {
+  --tw-prose-body: #374151;
+  --tw-prose-headings: #111827;
+  --tw-prose-lead: #6b7280;
+  --tw-prose-links: #2563eb;
+  --tw-prose-bold: #111827;
+  --tw-prose-counters: #6b7280;
+  --tw-prose-bullets: #9ca3af;
+  --tw-prose-hr: #e5e7eb;
+  --tw-prose-quotes: #111827;
+  --tw-prose-quote-borders: #3b82f6;
+  --tw-prose-captions: #6b7280;
+  --tw-prose-code: #111827;
+  --tw-prose-pre-code: #e5e7eb;
+  --tw-prose-pre-bg: #f3f4f6;
+  --tw-prose-th-borders: #d1d5db;
+  --tw-prose-td-borders: #e5e7eb;
+}
+
 .prose a {
   text-decoration: none;
 }
@@ -29,16 +49,28 @@
   text-decoration: underline;
 }
 
-.prose code {
+.dark .prose code {
   background: #1e293b;
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
 }
 
-.prose pre {
+.light .prose code {
+  background: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.dark .prose pre {
   background: #0f172a;
   border: 1px solid #334155;
+}
+
+.light .prose pre {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
 }
 
 .prose pre code {
@@ -46,16 +78,30 @@
   padding: 0;
 }
 
-.prose blockquote {
+.dark .prose blockquote {
   border-left-color: #3b82f6;
   background: #1e293b;
   border-radius: 0 0.5rem 0.5rem 0;
   padding: 1rem 1.5rem;
 }
 
+.light .prose blockquote {
+  border-left-color: #3b82f6;
+  background: #f9fafb;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem 1.5rem;
+}
+
 .prose img {
   border-radius: 0.75rem;
+}
+
+.dark .prose img {
   border: 1px solid #334155;
+}
+
+.light .prose img {
+  border: 1px solid #e5e7eb;
 }
 
 .prose table {
@@ -63,36 +109,63 @@
   overflow: hidden;
 }
 
-.prose th {
+.dark .prose th {
   background: #1e293b;
 }
 
-/* 全局滚动条样式 */
-::-webkit-scrollbar {
+.light .prose th {
+  background: #f9fafb;
+}
+
+/* Scrollbar styles */
+.dark ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
+.dark ::-webkit-scrollbar-track {
   background: #1e293b;
 }
 
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb {
   background: #475569;
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb:hover {
   background: #64748b;
 }
 
-/* 选中文本颜色 */
-::selection {
+.light ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Selection */
+.dark ::selection {
   background: rgba(59, 130, 246, 0.5);
   color: white;
 }
 
-/* line-clamp 支持 */
+.light ::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #1f2937;
+}
+
+/* Line clamp */
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -105,4 +178,11 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
 }
